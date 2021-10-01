@@ -1,0 +1,20 @@
+<div>直近の<%= @count %>回の応答時間が<%= @time %>ミリ秒以上のサーバーの一覧です</div>
+<table>
+  <tr>
+    <th>サーバーのIPアドレス</th>
+    <th>平均応答時間(ms)</th>
+  </tr>
+  <% if @recent_logs.any? %>
+    <% @recent_logs.each do |recent_log| %>
+      <tr>
+        <td><%= recent_log[:ip_address] %></td>
+        <td><%= recent_log[:average_interval] %></td>
+      <tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="2">上記の検索条件に合致するサーバーはありません</td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "ログ一覧のページに戻る", logs_path %>

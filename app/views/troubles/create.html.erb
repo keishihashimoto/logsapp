@@ -1,0 +1,9 @@
+<div><%= @min_count %>回以上連続してタイムアウトしたサーバーの一覧です</div>
+
+<%= render "shared", troubles: @troubles %>
+
+<%= link_to "全てのタイムアウト履歴を確認する", troubles_path %><br>
+<%= link_to "条件を変えてもう一度検索する", new_trouble_path %><br>
+<%= link_to "応答時間の長いサーバーを調べる", select_servers_path %><br>
+<%= link_to "サーバー一覧のページに戻る", servers_path %><br>
+<%= link_to "ログ一覧のページに戻る", logs_path %>

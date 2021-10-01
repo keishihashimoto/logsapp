@@ -1,0 +1,10 @@
+<div>
+  サーバーの一覧ページです
+</div>
+<% @servers.each do |server| %>
+  <div><%= server.ip_address %><div>
+<% end %>
+<div>
+  <%= link_to "新しいサーバーを登録する", new_server_path %><br>
+  <%= link_to "ログの一覧を確認する", logs_path %>
+</div>

@@ -1,0 +1,11 @@
+<div>現在登録されているログの一覧です</div>
+<%= link_to "サーバーの故障履歴を確認する", new_trouble_path %><br>
+<%= link_to "応答時間の長いサーバーを調べる", select_servers_path %><br>
+
+<% @logs.each do |log| %>
+  <div>
+    <%= log.server.ip_address %>,
+    <%= log.checked_at.strftime("%Y%m%d%H%M%s") %>,
+    <%= log.interval %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+<div>サーバーの登録ページです</div>
+<%= form_with model:@server do |f| %>
+  <%= f.label :ip_address, "登録するサーバーのIPアドレスを入力してください" %>
+  <%= f.text_field :ip_address %>
+  <%= f.submit "サーバーを登録する" %>
+<% end %>

@@ -1,0 +1,7 @@
+<div>発生していた障害の一覧です</div>
+<%= link_to "障害情報を再度検索する", new_trouble_path %><br>
+<%= link_to "応答時間の長いサーバーを調べる", select_servers_path %><br>
+<%= link_to "サーバー一覧のページに戻る", servers_path %><br>
+<%= link_to "ログ一覧のページに戻る", logs_path %>
+
+<%= render "shared", troubles: @troubles %>

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_01_065725) do
+ActiveRecord::Schema.define(version: 2021_10_01_065916) do
+
+  create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "server_id", null: false
+    t.datetime "checked_at", null: false
+    t.string "interval", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["server_id"], name: "index_logs_on_server_id"
+  end
 
   create_table "servers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "ip_address", null: false
@@ -18,4 +27,17 @@ ActiveRecord::Schema.define(version: 2021_10_01_065725) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "troubles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "server_id", null: false
+    t.datetime "trouble_start", null: false
+    t.datetime "trouble_end"
+    t.integer "checked_count"
+    t.decimal "trouble_time", precision: 15, scale: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["server_id"], name: "index_troubles_on_server_id"
+  end
+
+  add_foreign_key "logs", "servers"
+  add_foreign_key "troubles", "servers"
 end
