@@ -1,24 +1,40 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 利用方法、及び各種設問への解答
+### 設問１
+- 監視ログの一覧のページから、故障期間を出力するページに遷移する
+[![Image from Gyazo](https://i.gyazo.com/09be1bea736eb67071e18ee41132d695.gif)](https://gyazo.com/09be1bea736eb67071e18ee41132d695)
+- 何も入力せずに、「サーバーの故障履歴を確認する」ボタンを押す
+[![Image from Gyazo](https://i.gyazo.com/67310b518413da9858684cce2b32c4ff.gif)](https://gyazo.com/67310b518413da9858684cce2b32c4ff)
+### 設問2
+- 監視ログの一覧のページから、故障期間を出力するページに遷移する
+[![Image from Gyazo](https://i.gyazo.com/09be1bea736eb67071e18ee41132d695.gif)](https://gyazo.com/09be1bea736eb67071e18ee41132d695)
+- 何回以上連続でタイムアウトした場合に故障とみなすかを数字で入力する（今回は2回）
+[![Image from Gyazo](https://i.gyazo.com/ac8d19c68cfcdb6e5f80c6fc4286b8aa.gif)](https://gyazo.com/ac8d19c68cfcdb6e5f80c6fc4286b8aa)
+### 設問3
+- ログの一覧ページ上部の、「応答時間が長いサーバーを調べる」をクリックする。
+[![Image from Gyazo](https://i.gyazo.com/b1f6537e59cd870e45e6891a400edaf6.gif)](https://gyazo.com/b1f6537e59cd870e45e6891a400edaf6)
+- 検索条件を入力する(今回の例では、直近3回の応答時間が160ミリ秒を超えているサーバーを検索）
+[![Image from Gyazo](https://i.gyazo.com/f1e823b12dbb88fea8f3e5da035a779c.gif)](https://gyazo.com/f1e823b12dbb88fea8f3e5da035a779c) 
+### 設問4
+## プログラムの仕様・設問で明示されていない部分の解釈について
+- 設問1に関して
+  - 故障期間に関しては、「サーバーのIPアドレス・初回のタイムアウト検出日時・復旧検出日時・復旧までの応答確認回数」の形で出力。
+- 設問2に関して
+  - ある応答確認においてタイムアウトしたサーバーが次の応答確認で復旧していた場合には、「1回連続してタイムアウトしていた」とみなす。
+  - 直近の応答確認でタイムアウトであったとしても、連続タイムアウト回数がN回未満であれば検索結果には表示されない。
+    （例：N = 3 として検索をかけた場合には、直近2回で連続してタイムアウトしたまま復旧していないサーバーは検索結果に表示されない。）
+- 設問3に関して
+  - サーバーがタイムアウトしていたログについては、平均応答時間の算出対象に含めない。
+  - 平均応答時間を算出する際には、タイムアウトしていないログを新しいものから順に"m個"選んで計算する。
+  - タイムアウトを除いたログが"m個"未満の場合には、 タイムアウトしていないログ全ての平均を平均応答時間とする。
+- 設問4に関して
+  - 最新の応答確認において全てのサーバーがダウンしていたサブネットについては、現時点でN回連続で全てのサーバーがダウンしていた場合にのみ検索結果に表示される。
+  
+## 仕様したテストデータ、及びテスト結果
+### 使用したテストデータ
+#### サーバーのデータ一覧
+#### サーバーの応答ログ一覧
+### テスト結果
+#### 設問1
+#### 設問2
+#### 設問3
+#### 設問4
