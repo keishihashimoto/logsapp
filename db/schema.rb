@@ -22,7 +22,12 @@ ActiveRecord::Schema.define(version: 2021_10_01_065916) do
   end
 
   create_table "servers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "ip_address", null: false
+    t.string "ip_address"
+    t.integer "main_1", null: false
+    t.integer "main_2", null: false
+    t.integer "main_3", null: false
+    t.integer "main_4", null: false
+    t.integer "sub", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

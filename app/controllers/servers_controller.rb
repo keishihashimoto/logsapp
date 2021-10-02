@@ -20,11 +20,11 @@ class ServersController < ApplicationController
     @count = params[:count].to_i
     @time = params[:time].to_i
     @recent_logs = []
-    interval_sum = 0
     Server.all.each do |server|
+      interval_sum = 0
       if Log.where(server_id: server.id).where.not(interval: "-").length < @count
         server.logs.each do |log|
-          interval_sum = log.interval.to_i
+          interval_sum += log.interval.to_i
         end
         average_interval = (interval_sum.to_f) / server.logs.length
         if average_interval >= @time
@@ -54,6 +54,7 @@ class ServersController < ApplicationController
 
   private
   def server_params
-    params.require(:server).permit(:ip_address)
+    ip_address = "#{params[:server][:main_1]}.#{params[:server][:main_2]}.#{params[:server][:main_3]}.#{params[:server][:main_4]}/#{params[:server][:sub]}"
+    params.require(:server).permit(:main_1, :main_2, :main_3, :main_4, :sub).merge(ip_address: ip_address)
   end
 end
