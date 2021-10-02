@@ -9,7 +9,7 @@
       <li class="list-group-item">空欄の場合には、1回以上タイムアウトしたサーバーが全て表示されます。</li>
       <li class="list-group-item">支配下のサーバー全てが指定した回数以上連続でサブネットに関しては、サーバーと合わせて表示されます。</li>
     </ul>
-    <%= f.number_field :min_count, class:"form-control my-2" %>
+    <%= f.number_field :min_count, class:"form-control my-2", placeholder:"1以上の半角数字で入力" %>
     <%= f.submit "サーバーの故障履歴を確認する", class:"form-control my-2 bg-light" %>
   <% end %>
 

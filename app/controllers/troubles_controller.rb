@@ -8,6 +8,11 @@ class TroublesController < ApplicationController
   end
 
   def create
+    if params[:trouble][:min_count] == "" || params[:trouble][:min_count].to_i < 1 
+      @min_count = 1
+    else
+      @min_count = params[:trouble][:min_count].to_i
+    end
     @troubles = []
     Log.all.each do |log|
       if log.interval == "-"
@@ -40,15 +45,9 @@ class TroublesController < ApplicationController
       end
     end
     Trouble.all.each do |trouble|
-      if(trouble.checked_count != nil && trouble.checked_count >= params[:trouble][:min_count].to_i)
+      if(trouble.checked_count != nil && trouble.checked_count >= @min_count)
         @troubles << trouble
       end
-    end
-
-    if params[:trouble][:min_count] == nil
-      @min_count = 1
-    else
-      @min_count = params[:trouble][:min_count].to_i
     end
 
     # 最後に、同一サブネット内の全てのサーバーが同時にタイムアウトしている瞬間がないかどうかを調べる。
@@ -76,53 +75,55 @@ class TroublesController < ApplicationController
 
     @subnet_firsts.each do |subnet_first|
       count = 0
+      start_time = subnet_first.logs[0].checked_at.strftime("%Y%m%d")
       subnet_first.logs.each_with_index do |subnet_first_log, i|   
-        if subnet_first_log.interval == "-"
-          checking_time = subnet_first_log.checked_at.strftime("%Y%m%d")
+        
+        checking_time = subnet_first_log.checked_at.strftime("%Y%m%d")
 
-          if count == 0
-            start_time = checking_time
+        if count == 0
+          start_time = checking_time
+        end
+
+        simultaneous = "yes"
+
+        Log.all.each do |log|
+          if log.checked_at.strftime("%Y%m%d") == checking_time && log.interval != "-" && log.server.main_1 == subnet_first.main_1 && log.server.main_2 == subnet_first.main_2 && log.server.main_3 == subnet_first.main_3 
+            simultaneous = "no"
+            break
           end
 
-          simultaneous = "yes"
+        end
 
-          Log.all.each do |log|
-            if log.id != subnet_first.id && log.checked_at.strftime("%Y%m%d") == checking_time && log.interval != "-" && log.server.main_1 == subnet_first.main_1 && log.server.main_2 == subnet_first.main_2 && log.server.main_3 == subnet_first.main_3 
-              simultaneous = "no"
-              break
-            end
-
-          end
-
-          if simultaneous == "yes"
-            count += 1
-            if i == (subnet_first.logs.length - 1) && count >= @min_count
-              @subnet_trouble ={
-                main_1: subnet_first.main_1,
-                main_2: subnet_first.main_2,
-                main_3: subnet_first.main_3,
-                main_4: subnet_first.main_4,
-                start_time: start_time,
-                finish_time: checking_time,
-                count: count
-              }
-              @subnet_troubles << @subnet_trouble
-            end
-          elsif count >= @min_count
+        if simultaneous == "yes"
+          count += 1
+          if i == (subnet_first.logs.length - 1) && count >= @min_count
             @subnet_trouble ={
               main_1: subnet_first.main_1,
               main_2: subnet_first.main_2,
               main_3: subnet_first.main_3,
-              main_4: subnet_first.main_4,
               start_time: start_time,
               finish_time: checking_time,
               count: count
             }
             @subnet_troubles << @subnet_trouble
           end
-
+        elsif count >= @min_count
+          @subnet_trouble ={
+            main_1: subnet_first.main_1,
+            main_2: subnet_first.main_2,
+            main_3: subnet_first.main_3,
+            start_time: start_time,
+            finish_time: checking_time,
+            count: count
+          }
+          @subnet_troubles << @subnet_trouble
         end
-        
+
+        if simultaneous == "no"
+          count = 0
+          next
+        end
+      
       end
 
     end
