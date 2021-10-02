@@ -1,6 +1,32 @@
-<div><%= @min_count %>回以上連続してタイムアウトしたサーバーの一覧です</div>
+<div class="alert alert-secondary text-center"><%= @min_count %>回以上連続してタイムアウトしたサーバーの一覧です</div>
 
 <%= render "shared", troubles: @troubles %>
+
+<div class="alert alert-secondary text-center"><%= @min_count %>回以上連続してタイムアウトしたサブネットの一覧です</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>サブネットのIPアドレス</th>
+      <th>障害発生確認時刻</th>
+      <th>障害復旧確認時刻</th>
+      <th>修復確認までに行なった応答確認の回数</th>
+    </tr>
+  </thead>
+  <% @subnet_troubles.each do |trouble| %>
+    <tr>
+      <td><%= trouble[:main_1] %>.<%= trouble[:main_2] %>.<%= trouble[:main_3] %>.<%= trouble[:main_4] %>.</td>
+      <td><%= trouble[:start_time] %></td>
+      <td><%= trouble[:finish_time] %></td>
+      <td><%= trouble[:count] %></td>
+    </tr>
+  <% end %>
+  <% if @subnet_troubles == [] %>
+    <tr>
+      <th colspan="4">上記の検索条件に該当するサブネットアドレスはありません</th>
+    </tr>
+  <% end %>
+</table>
 
 <%= link_to "全てのタイムアウト履歴を確認する", troubles_path %><br>
 <%= link_to "条件を変えてもう一度検索する", new_trouble_path %><br>

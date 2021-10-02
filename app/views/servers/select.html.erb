@@ -1,10 +1,22 @@
-<div>応答時間の長いサーバーを確認します<div>
+<div class="container">
+  <div class="text-center alert alert-secondary">応答時間の長いサーバーを確認します</div>
 
-<%= form_with url:"/servers/search", method: "get", local: true do |f| %>
-  直近
-  <%= f.number_field :count %>
-  回の応答時間の平均が
-  <%= f.number_field :time %>
-  ミリ秒以上のものを検索する
-  <%= f.submit "検索" %>
-<% end %>
+  <%= form_with url:"/servers/search", method: "get", local: true do |f| %>
+    <div class="input-group my-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text">直近</span>
+      </div>
+      <%= f.number_field :count, class:"form-control" %>
+      <div class="input-group-append">
+        <span class="input-group-text">回の応答時間の平均が</span>
+      </div>
+    </div>
+    <div class="input-group my-2">
+      <%= f.number_field :time, class:"form-control" %>
+      <div class="input-group-append">
+        <span class="input-group-text">ミリ秒以上のものを検索する</span>
+      </div>
+    </div>
+    <%= f.submit "検索", class:"form-control bg-light my-2" %>
+  <% end %>
+</div>

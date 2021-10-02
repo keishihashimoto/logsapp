@@ -1,10 +1,16 @@
-<%= form_with model:@trouble, local: true do |f| %>
-  <%= f.label :min_count, "何回以上連続してタイムアウトした場合に故障とみなすかを数字で入力してください。" %><br>
-  <span>
-    故障を検知した次の応答確認で復旧していた場合には、連続タイムアウトの回数は1回とみなします。<br>
-    空欄の場合には、1回以上タイムアウトしたサーバーが全て表示されます。
-  </span>
-  <br>
-  <%= f.number_field :min_count %>
-  <%= f.submit "サーバーの故障履歴を確認する" %>
-<% end %>
+<div class="container">
+
+  <div class="alert alert-secondary text-center">サーバー・サブネットの障害情報を確認するページです</div>
+
+  <%= form_with model:@trouble, local: true do |f| %>
+    <ul class="list-group">
+      <li class="list-group-item">何回以上連続してタイムアウトした場合に故障とみなすかを数字で入力してください。</li>
+      <li class="list-group-item">故障を検知した次の応答確認で復旧していた場合には、連続タイムアウトの回数は1回とみなします。</li>
+      <li class="list-group-item">空欄の場合には、1回以上タイムアウトしたサーバーが全て表示されます。</li>
+      <li class="list-group-item">支配下のサーバー全てが指定した回数以上連続でサブネットに関しては、サーバーと合わせて表示されます。</li>
+    </ul>
+    <%= f.number_field :min_count, class:"form-control my-2" %>
+    <%= f.submit "サーバーの故障履歴を確認する", class:"form-control my-2 bg-light" %>
+  <% end %>
+
+</div>

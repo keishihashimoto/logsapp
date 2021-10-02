@@ -1,10 +1,12 @@
-<table>
-  <tr>
-    <th>サーバーのIPアドレス</th>
-    <th>障害発生確認時刻</th>
-    <th>障害復旧確認時刻</th>
-    <th>修復確認までに行なった応答確認の回数</th>
-  </tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th>サーバーのIPアドレス</th>
+      <th>障害発生確認時刻</th>
+      <th>障害復旧確認時刻</th>
+      <th>修復確認までに行なった応答確認の回数</th>
+    </tr>
+  </thead>
   <% troubles.each do |trouble| %>
     <tr>
       <td><%= trouble.server.ip_address %></td>

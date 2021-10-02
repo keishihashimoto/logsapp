@@ -1,10 +1,15 @@
-<div>サーバーの登録ページです</div>
-<%= form_with model:@server do |f| %>
-  <div>登録するサーバーのIPアドレスを入力してください</div>
-  <%= f.number_field :main_1 %>.
-  <%= f.number_field :main_2 %>.
-  <%= f.number_field :main_3 %>.
-  <%= f.number_field :main_4 %>/
-  <%= f.number_field :sub %>
-  <%= f.submit "サーバーを登録する" %>
-<% end %>
+<div class="container">
+  <div class="alert alert-secondary text-center">サーバーの登録ページです</div>
+  <%= form_with model:@server do |f| %>
+    <div class="my-2">登録するサーバーのIPアドレスを入力してください</div>
+    <div class="form-row row px-3">
+      <div class="col input-group px-0"><%= f.number_field :main_1, class:"form-control" %><div class="input-group-append"><span class="input-group-text rounded-0">.</span></div></div>
+      <div class="col input-group px-0"><%= f.number_field :main_2, class:"form-control rounded-0" %><div class="input-group-append"><span class="input-group-text rounded-0">.</span></div></div>
+      <div class="col input-group px-0"><%= f.number_field :main_3, class:"form-control rounded-0" %><div class="input-group-append"><span class="input-group-text rounded-0">.</span></div></div>
+      <div class="col input-group px-0"><%= f.number_field :main_4, class:"form-control rounded-0" %><div class="input-group-append"><span class="input-group-text rounded-0">/</span></div></div>
+      <div class="col input-group px-0"><%= f.number_field :sub, class:"form-control rounded-0 rounded-end" %></div>
+    </div>
+    <%= f.submit "サーバーを登録する", class:"form-control my-4 bg-light" %>
+    <button class="form-control bg-light"><%= link_to "サーバーの一覧に戻る", servers_path, class:"text-secondary text-decoration-none" %>
+  <% end %>
+</div>
