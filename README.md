@@ -37,14 +37,14 @@
 ### 使用したテストデータ
 - サーバーのダミーデータ
 
-id	ip_addressid	ip_address	
+id	ip_addressid	ip_address<br>	
 1	10.20.30.1/22	<br>
 2	10.20.30.2/22	<br>
 3	11.21.31.1/14	<br>
 4	11.21.31.2/14	<br>
 
 #### サーバーの応答ログ一覧
-id	server_id	checked_at	interval	
+id	server_id	checked_at	interval<br>
 1	1	2020-01-01 12:00:00	50	<br>
 2	2	2020-01-01 12:00:01	130	<br>
 3	3	2020-01-01 12:00:02	264	<br>
@@ -296,7 +296,7 @@ id	server_id	checked_at	interval
 
 ### テスト結果
 #### 設問1
-id	server_id	trouble_start	trouble_end	checked_count	
+id	server_id	trouble_start	trouble_end	checked_count<br>
 1	1	2020-01-03 12:00:00	2020-01-06 12:00:00	3	<br>
 2	1	2020-01-13 12:00:00	2020-01-14 12:00:00	1	<br>
 3	1	2020-01-17 12:00:00	2020-01-18 12:00:00	1	<br>
@@ -354,7 +354,7 @@ id	server_id	trouble_start	trouble_end	checked_count
 
 #### 設問2
 N = 2とした場合の結果<br>
-id	server_id	trouble_start	trouble_end	checked_count	
+id	server_id	trouble_start	trouble_end	checked_count<br>
 1	1	2020-01-03 12:00:00	2020-01-06 12:00:00	3	<br>
 6	1	2020-01-26 12:00:00	2020-01-29 12:00:00	3	<br>
 8	1	2020-02-03 12:00:00	2020-02-06 12:00:00	3	<br>
@@ -373,14 +373,14 @@ id	server_id	trouble_start	trouble_end	checked_count
 
 #### 設問3
 m = 3, t = 160 とした時の結果。<br>
-ip_address	average_interval	
+ip_address	average_interval<br>
 10.20.30.2/22	202.666666666667	<br>
 11.21.31.1/14	198.0	<br>
 
 
 #### 設問4
 - N = 1 とした場合の検索結果<br>
-id	ip_address	start_time	finish_time	count	
+id	ip_address	start_time	finish_time	count<br>
 1	10.20.30	20200105	20200106	1	<br>
 2	10.20.30	20200117	20200118	1	<br>
 3	10.20.30	20200203	20200204	1	<br>
@@ -393,5 +393,5 @@ id	ip_address	start_time	finish_time	count
 10	11.21.31	20200227	20200228	1	<br>
 
 - N = 2 とした場合（使用例のGifと同じ条件)の結果<br>
-id	ip_address	start_time	finish_time	count	
+id	ip_address	start_time	finish_time	count<br>
 7	11.21.31	20200110	20200112	2	<br>
